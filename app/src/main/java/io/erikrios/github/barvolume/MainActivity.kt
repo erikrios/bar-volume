@@ -1,6 +1,7 @@
 package io.erikrios.github.barvolume
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import io.erikrios.github.barvolume.databinding.ActivityMainBinding
 
@@ -8,11 +9,19 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    companion object {
+        private const val STATE_RESULT = "state_result"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        savedInstanceState?.let {
+            binding.tvResult.text = it.getString(STATE_RESULT)
+        }
 
         binding.btnCalculate.setOnClickListener {
             val length = binding.etLength.text.toString().trim()
@@ -47,5 +56,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         return isValid
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putString(STATE_RESULT, binding.tvResult.text.toString())
     }
 }
