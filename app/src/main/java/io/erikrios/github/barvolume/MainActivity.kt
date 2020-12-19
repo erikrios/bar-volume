@@ -1,7 +1,6 @@
 package io.erikrios.github.barvolume
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import io.erikrios.github.barvolume.databinding.ActivityMainBinding
 
@@ -58,8 +57,8 @@ class MainActivity : AppCompatActivity() {
         return isValid
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
         outState.putString(STATE_RESULT, binding.tvResult.text.toString())
     }
 }
